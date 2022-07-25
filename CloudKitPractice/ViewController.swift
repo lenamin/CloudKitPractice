@@ -25,7 +25,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         record.setValue(name, forKey: "name")
         database.save(record) { [weak self] record, error in
             if record != nil, error == nil {
-                self?.fetchItems()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self?.fetchItems()
+                }
             }
         }
     }
