@@ -34,6 +34,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+    }
+    
+    @objc func didTapAdd() {
+        let alert = UIAlertController(title: "Add Item",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addTextField { field in
+            field.placeholder = "Enter Name..."
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel",
+                                      style: .cancel,
+                                      handler: nil))
+        alert.addAction(UIAlertAction(title: "Add",
+                                      style: .default,
+                                      handler: { [weak self] _ in
+            if let field = alert.textFields?.first, let text = field.text, !text.isEmpty {
+                self?.saveItem(name: text)
+            }
+        }))
+        
+        present(alert, animated: true)
+
     }
     
     override func viewDidLayoutSubviews() {
