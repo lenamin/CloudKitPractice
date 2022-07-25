@@ -18,12 +18,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     private let database = CKContainer(identifier: "iCloud.iOS.cloudKitPractice").publicCloudDatabase
     
+    var items = [String]()
+    
     @objc func saveItem(name: String) {
         let record = CKRecord(recordType: "GroceryItem") // record type 설정
         record.setValue(name, forKey: "name")
-        database.save(record) { record, error in
+        database.save(record) { [weak self] record, error in
             if record != nil, error == nil {
-                print("saved")
+                self?.fetchItems()
             }
         }
     }
@@ -35,6 +37,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.dataSource = self
         tableView.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+         fetchItems()
+    }
+    
+    func fetchItems() {
+        let query = CKQuery(recordType: "GroceryItem",
+                            predicate: NSPredicate(value: true))
+        database.perform(query, inZoneWith: nil) { [weak self] records, error in
+            guard let records = records, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.items = records.compactMap({ $0.value(forKey: "name") as? String })
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     @objc func didTapAdd() {
@@ -60,6 +77,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
     
+    // MARK: Table View
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
@@ -67,12 +86,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Item"
+        cell.textLabel?.text = items[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return items.count
     }
 }
 
