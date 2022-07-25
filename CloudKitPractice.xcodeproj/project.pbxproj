@@ -13,6 +13,7 @@
 		BF8C5F9828893AC1002BF0BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C5F9628893AC1002BF0BD /* Main.storyboard */; };
 		BF8C5F9A28893AC2002BF0BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF8C5F9928893AC2002BF0BD /* Assets.xcassets */; };
 		BF8C5F9D28893AC2002BF0BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF8C5F9B28893AC2002BF0BD /* LaunchScreen.storyboard */; };
+		BF8C5FA728893AD6002BF0BD /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8C5FA628893AD6002BF0BD /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		BF8C5F9928893AC2002BF0BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF8C5F9C28893AC2002BF0BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF8C5F9E28893AC2002BF0BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF8C5FA428893AD2002BF0BD /* CloudKitPractice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudKitPractice.entitlements; sourceTree = "<group>"; };
+		BF8C5FA628893AD6002BF0BD /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF8C5FA728893AD6002BF0BD /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +46,7 @@
 			children = (
 				BF8C5F8F28893AC1002BF0BD /* CloudKitPractice */,
 				BF8C5F8E28893AC1002BF0BD /* Products */,
+				BF8C5FA528893AD6002BF0BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +61,7 @@
 		BF8C5F8F28893AC1002BF0BD /* CloudKitPractice */ = {
 			isa = PBXGroup;
 			children = (
+				BF8C5FA428893AD2002BF0BD /* CloudKitPractice.entitlements */,
 				BF8C5F9028893AC1002BF0BD /* AppDelegate.swift */,
 				BF8C5F9228893AC1002BF0BD /* SceneDelegate.swift */,
 				BF8C5F9428893AC1002BF0BD /* ViewController.swift */,
@@ -65,6 +71,14 @@
 				BF8C5F9E28893AC2002BF0BD /* Info.plist */,
 			);
 			path = CloudKitPractice;
+			sourceTree = "<group>";
+		};
+		BF8C5FA528893AD6002BF0BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF8C5FA628893AD6002BF0BD /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +299,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CloudKitPractice/CloudKitPractice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D9CAJN27UH;
@@ -313,6 +328,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CloudKitPractice/CloudKitPractice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D9CAJN27UH;
