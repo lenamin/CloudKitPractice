@@ -38,11 +38,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        tableView.refreshControl = control
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
          fetchItems()
     }
     
-    func fetchItems() {
+    @objc func fetchItems() {
         let query = CKQuery(recordType: "GroceryItem",
                             predicate: NSPredicate(value: true))
         database.perform(query, inZoneWith: nil) { [weak self] records, error in
@@ -52,6 +55,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             DispatchQueue.main.async {
                 self?.items = records.compactMap({ $0.value(forKey: "name") as? String })
                 self?.tableView.reloadData()
+            }
+        }
+    }
+    
+    @objc func pullToRefresh() {
+        tableView.refreshControl?.beginRefreshing()
+        let query = CKQuery(recordType: "GroceryItem",
+                            predicate: NSPredicate(value: true))
+        database.perform(query, inZoneWith: nil) { [weak self] records, error in
+            guard let records = records, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.items = records.compactMap({ $0.value(forKey: "name") as? String })
+                self?.tableView.reloadData()
+                self?.tableView.refreshControl?.endRefreshing()
             }
         }
     }
